@@ -77,3 +77,16 @@ See [docs/API_PROVIDERS.md](docs/API_PROVIDERS.md). The UI requires explicit app
 - Default output is a 32-page square paperback draft. Short manuscripts can leave blank pages.
 - Art and editorial review require human approval. Never assume a machine score guarantees artistic quality, age suitability, or KDP acceptance.
 - Model and API licenses, copyright disclosures and KDP's latest AI-content policies remain the publisher's responsibility.
+
+## Claude Code implementation handoff (2026-11-09)
+
+**Start here on your Ubuntu VPS:** [docs/VPS_CLAUDE_CODE_RUNBOOK.md](docs/VPS_CLAUDE_CODE_RUNBOOK.md) and [CLAUDE.md](CLAUDE.md). The handoff specifies a task-by-task agent workflow, safety limits and exact first prompt. Do not ask an agent to implement all features in one unrestricted run.
+
+- [Full target product requirements](docs/PRODUCT_REQUIREMENTS.md)
+- [Ordered implementation backlog with task IDs](docs/IMPLEMENTATION_BACKLOG.md)
+- [Acceptance tests and release gates](docs/ACCEPTANCE_TESTS.md)
+- [Security, rights and budget guardrails](docs/SECURITY_AND_PRIVACY.md)
+- [Architecture decisions](docs/DECISIONS.md)
+- [Implemented vs planned status matrix](docs/STATUS_MATRIX.md)
+
+**Important:** These added specifications are a development plan, *not* a declaration that pending image generation, KDP production checks or budget controls already exist. GitHub Actions currently checks basic Python behavior only. Keep API calls disabled and Streamlit bound to localhost during VPS trials.
