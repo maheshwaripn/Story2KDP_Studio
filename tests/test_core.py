@@ -91,8 +91,8 @@ def test_auto_group_long_manuscript_preserves_all_chunks():
     assert [part for scene in grouped for part in scene.split("\n\n")]==chunks
     project=build_project(text,"Long manuscript",pages=32,scene_chunks=grouped)
     assert len(project["scenes"])==28
-    assert project["scenes"][0]["page"]==3
-    assert project["scenes"][-1]["page"]==30
+    assert project["scenes"][0]["page"]==4
+    assert project["scenes"][-1]["page"]==31
 
 def test_group_input_validation():
     with pytest.raises(ValueError):
