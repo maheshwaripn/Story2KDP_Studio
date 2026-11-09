@@ -58,7 +58,7 @@ if selected=="— Create new —":
                     manuscript=read_manuscript(temp)
                     chunks=segment(manuscript)
                     if planning_mode.startswith("Auto-group"):
-                        grouped=group_scene_chunks(chunks,int(target_scenes))
+                        grouped=group_scene_chunks(chunks,min(int(target_scenes),len(chunks)))
                         project=build_project(manuscript,title,author,pages,scene_chunks=grouped)
                     else:
                         project=build_project(manuscript,title,author,pages)
