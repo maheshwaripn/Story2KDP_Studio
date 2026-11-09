@@ -83,12 +83,12 @@ def test_paid_provider_disabled_even_with_approval_and_key(monkeypatch, tmp_path
     assert not (tmp_path / "cache").exists()
 
 def test_auto_group_long_manuscript_preserves_all_chunks():
-    text="\\n\\n".join(f"Scene paragraph {i}. The story continues." for i in range(179))
+    text="\n\n".join(f"Scene paragraph {i}. The story continues." for i in range(179))
     chunks=segment(text)
     assert len(chunks)==179
     grouped=group_scene_chunks(chunks,28)
     assert len(grouped)==28
-    assert [part for scene in grouped for part in scene.split("\\n\\n")]==chunks
+    assert [part for scene in grouped for part in scene.split("\n\n")]==chunks
     project=build_project(text,"Long manuscript",pages=32,scene_chunks=grouped)
     assert len(project["scenes"])==28
     assert project["scenes"][0]["page"]==3
