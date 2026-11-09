@@ -5,19 +5,23 @@
 P0 -> P1 -> P2 -> P3 -> P4. Every task must include tests, docs, observed results and a rollback plan.
 
 ### P0 — VPS reproducibility and safety
-**P0-01 Clean Ubuntu acceptance + hardware report**
+**P0-01 Clean Ubuntu acceptance + hardware report** (scripts/doctor.py + scripts/smoke_test.sh now provided; actual VPS measurements and remediation still outstanding)
 - Fresh venv test on supported Ubuntu, Python 3.10/3.11; fix incompatible dependencies or scripts.
 - Add `scripts/doctor.py` to report OS, CPU model, memory (available and total), swap, disk, Python and installed dependency versions; redact account details.
 - CLI smoke test: import sample, generate procedural art, review, export PDF, inspect PDF geometry. Add automated subprocess-based smoke test.
 - Acceptance: reproducible commands and saved PASS/FAIL report, no need for API or model download.
-**P0-02 Secure installation and project storage**
+**P0-02 Secure installation and project storage** (promoted: strict Pydantic schema, v1 migration, corrupt JSON recovery and project lock required)
 - Validate project names and uploads, enforce allowed extensions/magic/size, prevent path escape/symlink abuse, file writes atomic, robust JSON input handling.
 - Explicit per-project storage namespace, snapshot/backup and recovery, no exposure of secrets/manuscripts in logs.
 - Acceptance: hostile-input tests; no traversal, oversize upload, or accidental overwrite; no public network listener by default.
-**P0-03 Baseline quality toolchain**
+**P0-03 Baseline quality toolchain** (include localhost bind verification, sanitized logs, dependency lock and CI smoke)
 - Pin dependencies via lock strategy appropriate to environment; add ruff, mypy targeted checks, pytest coverage, GitHub Actions caching, license and secret scans as practical.
 - Add fixtures for non-English text, very long paragraphs, missing illustration, unexpected PDF, and asset paths.
 - Acceptance: documented clean install + deterministic pipeline passing across supported Python versions.
+
+**P0-04 Paid API safety before wider testing:** Existing approval checkbox is not a budget. Default deny for untrusted usage, provider capability restrictions, conservative cost quotes, atomic spend ledger and mocked failure/concurrency tests. No claim of hard caps before they pass.
+
+See [code-specific review disposition](REVIEW_RESPONSE_2026-11-09.md) for exact order and design decisions.
 
 ### P1 — Data model and creative editing
 **P1-01 Canonical schema + migration:** Pydantic versioned project/scene/character/asset/review/job models; SQLite metadata, filesystem artwork; import v0.1 JSON without data loss. Test backward compatibility.

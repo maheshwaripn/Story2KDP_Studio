@@ -25,3 +25,6 @@ Release readiness: **development MVP / private trusted testing only**.
 
 ## Post-review incremental safeguards (2026-11-09)
 The branch now retains a previous project.json snapshot in `revisions/` on each save (not a full autosave/restore system). The Streamlit image upload handler limits raw size and pixel count, decodes PNG/JPEG data and generates its own safe filename. The local reviewer flags duplicate scene IDs, duplicate page assignments and placeholder text, and approximates effective DPI from the *existing* layout box. These do not make KDP production export ready. Additional security, revision UX, schema migrations and CI acceptance remain planned.
+
+## External code-specific review integration (2026-11-09)
+The user-provided review confirmed v0.1 is a private proofing MVP. Loopback Streamlit default configuration, a standard-library VPS diagnostics tool, and a synthetic offline CLI smoke script have now been added to the development branch; VPS results and full data-validation hardening remain **NOT VERIFIED/PLANNED** respectively. Details: [review response](REVIEW_RESPONSE_2026-11-09.md).

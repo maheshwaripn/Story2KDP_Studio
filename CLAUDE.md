@@ -27,7 +27,7 @@ Do not claim generative AI quality is possible offline on all 8 GB CPUs. Procedu
 
 ## Essential product constraints
 - Human approval gates for character Bible, storyboard, each selected image and final print assets.
-- Local SQLite/filesystem as source of truth; reproducible metadata for each asset (prompt, provider, model ID/version, seed if applicable, source, rights, timestamps, revision, cost).
+- CURRENT v0.1: JSON project files + filesystem. TARGET (decided, not implemented): SQLite metadata + filesystem as source of truth; reproducible metadata for each asset (prompt, provider, model ID/version, seed if applicable, source, rights, timestamps, revision, cost).
 - Task routing: `offline`, `openai`, `anthropic`, `gemini`, `external_image`; capability discovery must reject unsupported requests (Claude text/vision review is not native image generation).
 - Default API access OFF; never send a manuscript or character reference without specific user consent. Redact keys and content from logs.
 - Use conservative cost reservation, enforce task and project budgets, account for image/unit billing, show actual vs estimated spending; no calls once reservations exceed cap.
@@ -38,4 +38,4 @@ Do not claim generative AI quality is possible offline on all 8 GB CPUs. Procedu
 See docs/ACCEPTANCE_TESTS.md. No feature is "done" merely because source files exist. CI success, integration tests, field checks, human visual approval, and KDP Previewer are different gates.
 
 ## First task to execute on VPS
-Work on P0-01 from docs/IMPLEMENTATION_BACKLOG.md. Install in a clean venv, inspect failures, add hardware benchmark without downloading a model, fix packaging and create a test report. Then proceed through P0-02, P0-03 ... one slice per PR.
+See docs/REVIEW_RESPONSE_2026-11-09.md. Work on P0-01 from docs/IMPLEMENTATION_BACKLOG.md. Run the provided scripts/doctor.py and scripts/smoke_test.sh on the actual VPS, inspect failures, add hardware measurements without downloading a model, fix packaging and create a test report. Then proceed through P0-02, P0-03 ... one slice per PR.

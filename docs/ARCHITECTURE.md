@@ -13,6 +13,15 @@ Streamlit / story2kdp CLI
     -> publishing.py (interior draft, proof cover, PyMuPDF checks)
 ```
 
+## Implementation truth: CURRENT vs TARGET
+
+- **CURRENT:** version-1 JSON project files with revision snapshots and a filesystem image/output layout. No SQLite metadata database or schema migrations exist yet.
+- **DECIDED, NOT IMPLEMENTED:** validated versioned Pydantic model, migrated SQLite metadata and an asset provenance ledger.
+- **EXPERIMENTAL:** optional in-process OpenVINO, not resource-isolated and not tested on the target VPS.
+- **TARGET:** cancellable worker subprocess, bounded API budgets, reliable character reference conditioning and production print assets.
+
+For feature claims use [STATUS_MATRIX.md](STATUS_MATRIX.md). For tasks use [IMPLEMENTATION_BACKLOG.md](IMPLEMENTATION_BACKLOG.md).
+
 ## Core JSON contract
 
 The `project.json` file contains `title`, `author`, `trim_inches`, `page_count`, `characters`, `scenes` and `approval_gates`. Each scene has `id`, `page`, `text`, `visual_prompt`, `image`, `approved` and `review`. Image values are relative project paths; avoid editing IDs once images are assigned. These are editable data, not generated model weights.
