@@ -3,7 +3,7 @@
 **A local-first Python studio for turning children's story manuscripts into illustrated picture-book proofs, with a roadmap toward validated Amazon KDP print production.**
 
 [![Python tests](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml)
-[[![Development roadmap](https://img.shields.io/badge/roadmap-open%20issues-blue)](https://github.com/maheshwaripn/Story2KDP_Studio/issues)](https://github.com/maheshwaripn/Story2KDP_Studio/pull/1)
+[![Development roadmap](https://img.shields.io/badge/roadmap-open%20issues-blue)](https://github.com/maheshwaripn/Story2KDP_Studio/issues)](https://github.com/maheshwaripn/Story2KDP_Studio/pull/1)
 ![Status](https://img.shields.io/badge/status-v0.1%20MVP-orange)
 ![Hardware](https://img.shields.io/badge/target-Linux%20CPU%20%7C%208GB%20RAM-informational)
 
