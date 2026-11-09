@@ -7,7 +7,7 @@ name = "story2kdp-studio"
 version = "0.1.0"
 description = "Local-first illustrated picture-book studio with optional AI providers and KDP preflight"
 requires-python = ">=3.10"
-dependencies = ["Pillow>=10,<13", "reportlab>=4,<5", "PyMuPDF>=1.24,<2", "python-docx>=1.1,<2", "requests>=2.31,<3"]
+dependencies = ["Pillow>=10,<13", "reportlab>=4,<6", "PyMuPDF>=1.24,<2", "python-docx>=1.1,<2", "requests>=2.31,<3"]
 
 [project.optional-dependencies]
 web = ["streamlit>=1.36,<2"]
