@@ -1,6 +1,7 @@
 import json
 import pytest
 from story2kdp.core import build_project,save_project,load_project,segment
+from story2kdp.planning import group_scene_chunks
 from story2kdp.illustration import concept_art
 from story2kdp.review import review_project
 from story2kdp.publishing import interior_pdf,proof_cover,preflight_pdf
@@ -80,3 +81,25 @@ def test_paid_provider_disabled_even_with_approval_and_key(monkeypatch, tmp_path
     with pytest.raises(ProviderError, match="disabled by default"):
         text_task("openai", "Synthetic story", tmp_path / "cache", approve_paid_request=True)
     assert not (tmp_path / "cache").exists()
+
+def test_auto_group_long_manuscript_preserves_all_chunks():
+    text="\n\n".join(f"Scene paragraph {i}. The story continues." for i in range(179))
+    chunks=segment(text)
+    assert len(chunks)==179
+    grouped=group_scene_chunks(chunks,28)
+    assert len(grouped)==28
+    assert [part for scene in grouped for part in scene.split("\n\n")]==chunks
+    project=build_project(text,"Long manuscript",pages=32,scene_chunks=grouped)
+    assert len(project["scenes"])==28
+    assert project["scenes"][0]["page"]==4
+    assert project["scenes"][-1]["page"]==31
+
+def test_group_input_validation():
+    with pytest.raises(ValueError):
+        group_scene_chunks([],28)
+    with pytest.raises(ValueError):
+        group_scene_chunks(["Hello"],0)
+    with pytest.raises(ValueError):
+        group_scene_chunks(["Hello"],2)
+    with pytest.raises(ValueError):
+        build_project("Hello","Book",scene_chunks=[""])

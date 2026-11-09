@@ -74,6 +74,12 @@ Open **http://localhost:8501** locally. Substitute your actual VPS username/addr
 
 Full installation, troubleshooting and operating procedure: [Ubuntu VPS guide](docs/UBUNTU_VPS.md).
 
+## New: flexible scene planning for long manuscripts
+
+The book-creation UI supports **Auto-group all text into story scenes** (fully offline), which combines consecutive parsed text chunks into the target number of story scenes instead of rejecting long manuscripts such as 179 chunks for a 32-page book. Original chunk content and order are retained, and the local project stores the imported source manuscript. This is **not** summarization or automatic page text fitting: review dense scenes manually and inspect the exported PDF. **Strict** mode is still available and CLI behavior is unchanged.
+
+[Read the scene-planning and troubleshooting guide](docs/SCENE_PLANNING.md).
+
 ## Create your first offline book proof
 
 1. In Streamlit, upload a TXT, Markdown or DOCX manuscript and set the book metadata.
