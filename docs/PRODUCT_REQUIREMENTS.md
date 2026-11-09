@@ -39,3 +39,13 @@ R3: print-preflight-complete KDP interior/full-wrap cover and user preview accep
 
 ## 6. Explicit exclusions until separately scoped
 No autonomous KDP account upload, no guarantee of copyright ownership or Amazon acceptance, no guaranteed Ghibli likeness or reproduction of existing IP, no claim of high-quality CPU-only offline diffusion under every hardware configuration.
+
+## 7. Permanent free-access and complete-feature requirement
+**Owner decision: free and open-source product, with all functional capabilities available without subscription or license payments.** This supersedes any three-tier/free-versus-Pro/Studio monetization recommendations. The no-charge path for every feature can be local/offline or manual-assisted; no commercial AI credentials may be required to create, review or export a book. Future polished AI generation may be limited by available hardware and licensed model capabilities; do not claim an 8 GB CPU can achieve every result autonomously.
+
+- All application features are in one community edition, no feature flags tied to money.
+- Offline/manual-only workflow is the baseline acceptance suite. Optional third-party commercial APIs are a convenience rather than a requirement, default disabled, with explicit opt-in and safe budget checks before any use.
+- Advanced local models can be optional downloads after license and memory checks. Unsupported low-memory generation must give an actionable fallback (manual art upload or provider-free reference/template workflow).
+- KDP-ready export/publishing-validation code should use freely available libraries, scripts, lawful fonts and official KDP specifications; no paid template service dependency.
+- User authorship, generated media rights, third-party licensing and printing costs are distinct from the software's free access.
+- Details and acceptance: [FREE_FIRST_POLICY.md](FREE_FIRST_POLICY.md), [FREE_FEATURE_MATRIX.md](FREE_FEATURE_MATRIX.md).

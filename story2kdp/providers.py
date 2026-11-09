@@ -8,11 +8,25 @@ import requests
 
 class ProviderError(RuntimeError): pass
 
+def paid_api_enabled() -> bool:
+    """Commercial provider calls remain disabled unless explicitly opted in.
+
+    This is only a safety guard, not a hard cost cap or payment guarantee.
+    """
+    return os.environ.get("STORY2KDP_ENABLE_PAID_APIS") == "1"
+
+
 MODELS = {"openai":"gpt-4.1-mini", "anthropic":"claude-sonnet-4-5", "gemini":"gemini-2.5-flash"}
 
 def text_task(provider: str, prompt: str, cache_dir: str | Path, *, model: str | None = None,
               max_output_tokens: int = 1000, approve_paid_request: bool = False) -> str:
     """Only call when the operator explicitly approves usage. Cache identical requests."""
+    if not paid_api_enabled():
+        raise ProviderError(
+            "Commercial AI APIs are disabled by default. Free local workflows remain available. "
+            "Only an operator who accepts possible provider billing may explicitly set "
+            "STORY2KDP_ENABLE_PAID_APIS=1; no hard spending cap is implemented."
+        )
     if not approve_paid_request:
         raise ProviderError("Paid provider calls require explicit approval")
     if provider not in MODELS:

@@ -1,6 +1,6 @@
 # Story2KDP Studio
 
-**A local-first Python studio for turning children's story manuscripts into illustrated picture-book proofs, with a roadmap toward validated Amazon KDP print production.**
+**Free and open-source, local-first Python studio for children's picture books. No paid tiers or feature paywalls; currently a proofing MVP, with a roadmap to validated Amazon KDP print production.**
 
 [![Python tests](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml)
 [![Development roadmap](https://img.shields.io/badge/roadmap-open%20issues-blue)](https://github.com/maheshwaripn/Story2KDP_Studio/issues)
@@ -96,9 +96,17 @@ story2kdp export projects/demo
 
 The standard concept engine draws simple original procedural illustrations. To experiment with **neural** text-to-image on Intel CPU, see [docs/ILLUSTRATION.md](docs/ILLUSTRATION.md). The optional OpenVINO pipeline requires an independently downloaded, compatible, commercially permitted preconverted model. **An 8 GB RAM, no-GPU machine may fail to load the model**, and local diffusion can be slow; do not make it a prerequisite for installing or testing the publishing app.
 
+### Free-with-all-features commitment
+
+Story2KDP Studio will not have paid editions, subscriptions, premium-feature locks, or mandatory commercial provider keys. Every planned feature must have a documented no-charge, local or manually assisted workflow. See [free-first product policy](docs/FREE_FIRST_POLICY.md) and [free feature implementation map](docs/FREE_FEATURE_MATRIX.md). **Free access is not a promise that every feature is already implemented, or that professional neural art is feasible on an 8 GB CPU.** You may use free local workflows and supply your own artwork. Hardware, electricity, VPS hosting, printing, and external commercial APIs can still cost money.
+
 ### Optional AI integrations
 
-The current basic API implementation is documented in [docs/API_PROVIDERS.md](docs/API_PROVIDERS.md). API operations require explicit approval; they may incur provider charges. **Hard project-level budget enforcement and real production image API support are future tasks**, so do not assume a selected provider has every capability. Never commit API keys, model weights or private manuscripts.
+The current basic API implementation is documented in [docs/API_PROVIDERS.md](docs/API_PROVIDERS.md). Commercial text APIs are **disabled by default** and require both an explicit server-side opt-in and user approval; they may incur provider charges. **Hard project-level budget enforcement and real production image API support are future tasks**, so do not assume a selected provider has every capability. Never commit API keys, model weights or private manuscripts.
+
+## No paid AI needed for core operation
+
+Start with the local manuscript, storyboard, review, procedural concepts or personally supplied original illustrations, and proof generation. Any third-party API (including commercial AI models) is an **extra**, not a prerequisite. The software cannot make cloud API vendors, VPS resources or KDP printing free. No AI output quality or rights are guaranteed by the license.
 
 ## Claude Code implementation handoff
 

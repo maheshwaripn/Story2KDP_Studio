@@ -3,9 +3,17 @@
 This file is the authoritative instruction entry point for agents working in this repository. Follow instructions in this order: user request, this file, docs/PRODUCT_REQUIREMENTS.md, docs/IMPLEMENTATION_BACKLOG.md, docs/ACCEPTANCE_TESTS.md, then existing implementation. Treat documentation as *requirements*, not proof of implementation.
 
 ## Mission and non-negotiables
-Build Story2KDP Studio: a Linux-first, CPU/8 GB RAM-friendly, local-first children's pictorial-book creation tool. Import manuscripts; generate unique per-book character concepts and illustrated scenes with warm, soft-edged, hand-painted Japanese-animation-inspired visual direction; review and approve editorial/art decisions; export rigorously checked Amazon KDP print interiors and full-wrap covers. Support selective, user-approved OpenAI, Anthropic/Claude, and Google/Gemini use. No mandatory tokens, no required discrete GPU, no silent external uploads.
+Build Story2KDP Studio: a FREE and open-source, Linux-first, CPU/8 GB RAM-friendly, local-first children's pictorial-book creation tool. Import manuscripts; generate unique per-book character concepts and illustrated scenes with warm, soft-edged, hand-painted Japanese-animation-inspired visual direction; review and approve editorial/art decisions; export rigorously checked Amazon KDP print interiors and full-wrap covers. Support selective, user-approved OpenAI, Anthropic/Claude, and Google/Gemini use. No mandatory tokens, no required discrete GPU, no silent external uploads.
 
 Do not claim generative AI quality is possible offline on all 8 GB CPUs. Procedural previews != generated professional art. Explicitly label proofs vs production exports. A successful CI run is not evidence of KDP compliance.
+
+## Owner's permanent no-paywall product requirement (2026-11-09)
+- All current and planned application features are **free to use** in the official project. No Pro/Studio tiers, license keys, trial timers, credit quotas, forced cloud billing, subscription checks, affiliate gating, hidden paid feature dependency or paid-only export.
+- New features need a documented local/offline or manual no-charge path. Optional paid third-party services can be supported as integrations only, disabled by default and not the sole route to a core feature. They must never be called implicitly.
+- A free path may require the creator's manual work, an appropriately licensed model, and more capable hardware. Do not promise professional, automatic generative-image quality on an 8 GB CPU-only VPS.
+- Prefer permissively licensed, no-fee runtime libraries, fonts, print tools and model artifacts; record licensing obligations and commercial-use permissions. Never bundle unclear or paid-only model weights.
+- Consult docs/FREE_FIRST_POLICY.md and docs/FREE_FEATURE_MATRIX.md before proposing any implementation, provider, release or pricing architecture.
+- Keep Claude Code *developer tooling* separate from the user's no-cost app; Claude Code itself may have external access costs.
 
 ## Working agreement
 1. First read README.md, docs/ROADMAP.md, docs/PRODUCT_REQUIREMENTS.md, docs/IMPLEMENTATION_BACKLOG.md, docs/ACCEPTANCE_TESTS.md, docs/SECURITY_AND_PRIVACY.md, docs/UBUNTU_VPS.md.

@@ -8,3 +8,5 @@ ADR-005: proof exports remain PROOF until print preflight gates, rights review a
 ADR-006: one subprocess heavy job at a time; UI must remain responsive, workers cancellable, and low memory should stop initiation rather than crash VPS.
 ADR-007: GitHub `feat/local-first-mvp` is initial integration branch; Claude Code makes small PRs; main changes require user approval. Never assume branch names after merges without checking repository state.
 ADR-008: default appearance is original soft hand-painted animation aesthetic, positive emotions and smooth edges; reference to established studio is inspiration only, not replica character design.
+
+ADR-009 (2026-11-09): **All features remain free in the official application**. No tiers, license-key locks or mandatory provider subscriptions. The no-fee implementation path can be offline/manual-assisted where local neural inference is infeasible. Paid cloud APIs are optional, disabled by default, and may charge the operator if separately enabled; they cannot be the only access path to a core operation. This owner decision overrides external monetization suggestions.

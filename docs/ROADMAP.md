@@ -40,3 +40,6 @@ Proposed improvements:
 ```
 
 Report separate issues for install defects, model failures, visual quality, and publishing issues so fixes can be tested independently.
+
+## No-charge feature delivery policy
+Every P0–P4 workstream must include a free no-provider path and no premium or paid-only feature lock. Start with free document editing, local quality checks and publishing; use open-source CPU models only when practical and legally usable, with a manual illustration path always available. Optional billable provider adapters do not count as a free baseline. See [FREE_FIRST_POLICY.md](FREE_FIRST_POLICY.md) and [FREE_FEATURE_MATRIX.md](FREE_FEATURE_MATRIX.md).
