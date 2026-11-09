@@ -28,3 +28,6 @@ The branch now retains a previous project.json snapshot in `revisions/` on each 
 
 ## External code-specific review integration (2026-11-09)
 The user-provided review confirmed v0.1 is a private proofing MVP. Loopback Streamlit default configuration, a standard-library VPS diagnostics tool, and a synthetic offline CLI smoke script have now been added to the development branch; VPS results and full data-validation hardening remain **NOT VERIFIED/PLANNED** respectively. Details: [review response](REVIEW_RESPONSE_2026-11-09.md).
+
+## Main-branch publication policy
+All status flags here reflect actual repository functionality, not promises. GitHub's default branch may include in-progress architecture and documentation; **production KDP support, CPU model reliability and AI spending caps remain unverified or planned** until explicitly promoted by acceptance tests. Optional OpenVINO is a real experimental code path in `illustration.py`, but requires a separately acquired compatible model and has no demonstrated reliable loading on an 8 GB CPU-only VPS.

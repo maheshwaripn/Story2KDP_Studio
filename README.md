@@ -2,8 +2,8 @@
 
 **A local-first Python studio for turning children's story manuscripts into illustrated picture-book proofs, with a roadmap toward validated Amazon KDP print production.**
 
-[![Python tests](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml/badge.svg?branch=feat/local-first-mvp)](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml)
-[![Development PR](https://img.shields.io/badge/development-PR%20%231-blue)](https://github.com/maheshwaripn/Story2KDP_Studio/pull/1)
+[![Python tests](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/maheshwaripn/Story2KDP_Studio/actions/workflows/test.yml)
+[[![Development roadmap](https://img.shields.io/badge/roadmap-open%20issues-blue)](https://github.com/maheshwaripn/Story2KDP_Studio/issues)](https://github.com/maheshwaripn/Story2KDP_Studio/pull/1)
 ![Status](https://img.shields.io/badge/status-v0.1%20MVP-orange)
 ![Hardware](https://img.shields.io/badge/target-Linux%20CPU%20%7C%208GB%20RAM-informational)
 
@@ -48,10 +48,10 @@ More precise claims and limitations: [docs/STATUS_MATRIX.md](docs/STATUS_MATRIX.
 
 Requirements: Python 3.10+ (3.10/3.11 tested in GitHub CI), Git, Python venv support and sufficient disk. The standard setup does **not** require a GPU, model download, or cloud API key.
 
-**The application is currently on the development branch, not `main`.**
+**The current v0.1 proofing MVP and development documentation are available on `main`.**
 
 ```bash
-git clone -b feat/local-first-mvp https://github.com/maheshwaripn/Story2KDP_Studio.git
+git clone https://github.com/maheshwaripn/Story2KDP_Studio.git
 cd Story2KDP_Studio
 bash scripts/bootstrap_ubuntu.sh
 source .venv/bin/activate
@@ -112,7 +112,7 @@ If you will develop this project with Claude Code on your Ubuntu VPS, use these 
 6. [docs/SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) — privacy, usage budgets, IP rights and VPS safety.
 7. [docs/STATUS_MATRIX.md](docs/STATUS_MATRIX.md) — current implementation versus future capabilities.
 
-**First Claude Code task: P0-01 only.** Run a clean VPS acceptance test, add hardware diagnostics, fix real installation issues and produce a small, tested PR. Do not download large models, trigger paid APIs or attempt all milestones at once.
+**First Claude Code task: P0-01 only.** Run the included hardware diagnostics and synthetic offline smoke test on your VPS; fix actual installation issues and produce a small, tested PR. Claude Code itself is **not** needed to install or operate the existing MVP. Do not download large models, trigger paid APIs or attempt all milestones at once.
 
 Tracked workstreams: [P0 setup](https://github.com/maheshwaripn/Story2KDP_Studio/issues/2), [P0 security](https://github.com/maheshwaripn/Story2KDP_Studio/issues/3), [P1 creative workflow](https://github.com/maheshwaripn/Story2KDP_Studio/issues/4), [P2 illustrations](https://github.com/maheshwaripn/Story2KDP_Studio/issues/5), [P3 API/reviews/budgets](https://github.com/maheshwaripn/Story2KDP_Studio/issues/6), [P4 print production](https://github.com/maheshwaripn/Story2KDP_Studio/issues/7).
 
@@ -157,6 +157,10 @@ Please report reproducible issues via [GitHub Issues](https://github.com/maheshw
 - [Illustrations and style consistency](docs/ILLUSTRATION.md)
 - [KDP checklist and outstanding production work](docs/KDP_CHECKLIST.md)
 - [Agent architecture decisions](docs/DECISIONS.md)
+
+## Important: MVP scope and release policy
+
+This is a **private/trusted-use proofing MVP**, not a KDP-ready production tool. The optional OpenVINO adapter in `story2kdp/illustration.py` is an **experimental local function**, not a tested, preloaded CPU illustration engine. It is not enabled in the Streamlit UI and requires a separate compatible model and explicit CLI invocation. No professional offline visual-quality guarantee is made. GitHub tests verify proof workflows, not model loading or print acceptance. See [current capability register](docs/STATUS_MATRIX.md).
 
 ## License and publishing responsibility
 

@@ -7,3 +7,31 @@ projects/
 models/
 *.egg-info/
 .DS_Store
+
+# Secrets, IDE or Streamlit credentials
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Artifacts, build and local project state
+*.sqlite
+*.sqlite3
+*.db
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.bin
+*.gguf
+dist/
+build/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.log

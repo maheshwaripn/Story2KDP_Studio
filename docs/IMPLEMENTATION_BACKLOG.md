@@ -73,3 +73,12 @@ Copilot could not retrieve the repository, so its advice was general rather than
 **Add to P4:** Offer optional DOCX / Kindle EPUB export only after the canonical book model and print PDF pipeline stabilize. Differentiate KDP paperback PDF requirements from Kindle EPUB; implement format-specific re-open/validate tests, and document accessible reading order. Reserve trim, cover and print-specific rules for PDF. Protect against widow/orphan and text overflow in long-form layouts where relevant.
 
 **Repository operations:** Add CONTRIBUTING.md, SECURITY.md, CHANGELOG.md, Dependabot and minimal static-security CI, with false-positive handling; add tests for interrupted processing, no content loss, low-cost retries and non-Latin text. Release notes must clearly distinguish code vs roadmap.
+
+## Follow-up reviewer findings on repository discoverability
+- **Repository default branch:** publish the tested development MVP and documentation to `main`, so external review sees actual files. Preserve explicit v0.1 / PROOF status. Merge through PR with checked head SHA.
+- **Dependency reproducibility:** design and generate a verified lock/constraints strategy *after* clean Ubuntu acceptance; avoid guessing versions without resolver verification. Split system-level apt prerequisites from non-root repeatable Python installation.
+- **Provider interface:** capability protocol, never-network offline mock, mocked failures, no implicit API calls, key material only from environment; protect `.streamlit/secrets.toml`.
+- **Art workflow:** consistent character card IDs, prompts, seed/provider/provenance, per-image approval and rejection; no silent auto-approval.
+- **Publishing profiles:** add 8×10 as a *target* preset only after current official KDP specs are validated; include metadata and AI disclosure user review. Do not turn proof PDF into a supposedly compliant upload before validation.
+- **Repo hygiene:** pull request template, optional future version tag after VPS verification, check status matrix against code at every PR. Do not tag as stable or production-ready at this time.
+- **Content safety:** apply rights review for known commercial characters and explicit opt-in for sending images/text or identifiable minors to external APIs; avoid brittle claims that a keyword ban guarantees IP safety.
