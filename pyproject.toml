@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "story2kdp-studio"
+version = "0.1.0"
+description = "Local-first illustrated picture-book studio with optional AI providers and KDP preflight"
+requires-python = ">=3.10"
+dependencies = ["Pillow>=10,<13", "reportlab>=4,<5", "PyMuPDF>=1.24,<2", "python-docx>=1.1,<2", "requests>=2.31,<3"]
+
+[project.optional-dependencies]
+web = ["streamlit>=1.36,<2"]
+intel = ["optimum-intel[openvino]>=1.20", "diffusers>=0.30", "transformers>=4.40"]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+story2kdp = "story2kdp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["story2kdp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
