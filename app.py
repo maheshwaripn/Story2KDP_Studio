@@ -9,7 +9,7 @@ from story2kdp.core import read_manuscript,build_project,save_project,load_proje
 from story2kdp.illustration import concept_art
 from story2kdp.review import review_project
 from story2kdp.publishing import interior_pdf,proof_cover,preflight_pdf
-from story2kdp.providers import text_task,ProviderError
+from story2kdp.providers import text_task,ProviderError,paid_api_enabled
 
 ROOT=Path("projects");ROOT.mkdir(exist_ok=True)
 st.set_page_config(page_title="Story2KDP Studio",page_icon="📖",layout="wide")
@@ -108,14 +108,22 @@ with tabs[2]:
     st.json(issues)
     st.caption("These are mechanical checks, not a substitute for human artistic, ethical, legal or child-development review.")
 with tabs[3]:
-    st.subheader("Optional paid text analysis")
+    st.subheader("Optional provider text analysis")
+    st.info("All core book planning, local review and proof generation remain free. "
+            "Commercial provider calls are disabled by default and are never required "
+            "to use the free workflow. For no-cost checking, use the Review tab.")
+    if not paid_api_enabled():
+        st.warning("Commercial API access is OFF (default). This app does not yet have "
+                   "a hard spending cap. Continue working locally or manually import "
+                   "text you created using another tool. Commercial providers are optional.")
+
     provider=st.selectbox("Provider",["openai","anthropic","gemini"])
     model=st.text_input("Model ID (blank uses adapter default)","")
     job=st.selectbox("Task",["Character Bible","Storyboard review","Literary edit","Age suitability review","Color/art direction review"])
     prompt=st.text_area("Exact request",f"Task: {job}. Book: {project['title']}. Scenes: "+json.dumps(project["scenes"],ensure_ascii=False)[:12000],height=240)
     st.warning("Costs vary by model. This MVP does not implement a hard financial budget or image-generation API. Never assume free requests.")
     approval=st.checkbox("I approve sending this manuscript material to this provider and accept possible API charges")
-    if st.button("Run selected text task",disabled=not approval):
+    if st.button("Run selected text task",disabled=not approval or not paid_api_enabled()):
         try:st.text_area("Provider response",text_task(provider,prompt,base/"cache",model=model or None,approve_paid_request=True),height=300)
         except ProviderError as exc:st.error(str(exc))
 with tabs[4]:

@@ -31,3 +31,6 @@ The user-provided review confirmed v0.1 is a private proofing MVP. Loopback Stre
 
 ## Main-branch publication policy
 All status flags here reflect actual repository functionality, not promises. GitHub's default branch may include in-progress architecture and documentation; **production KDP support, CPU model reliability and AI spending caps remain unverified or planned** until explicitly promoted by acceptance tests. Optional OpenVINO is a real experimental code path in `illustration.py`, but requires a separately acquired compatible model and has no demonstrated reliable loading on an 8 GB CPU-only VPS.
+
+## Free edition commitment versus implemented features
+One official free application edition; no subscriptions or Pro/Studio feature gates. The currently functional offline manuscript/storyboard/proof functions are no-fee, and paid provider calls are disabled by default (`STORY2KDP_ENABLE_PAID_APIS=0`). The future full workflow must provide free local/manual paths as tracked in [FREE_FEATURE_MATRIX.md](FREE_FEATURE_MATRIX.md). **This does not imply all rows are implemented today or that local professional generation is feasible on 8 GB RAM.**

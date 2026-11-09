@@ -1,8 +1,8 @@
-# Optional text API providers: selective usage
+# Optional commercial text API providers: disabled by default
 
 ## Supported current integration
 
-`story2kdp.providers.text_task()` and the Streamlit **AI Assistant** tab support opt-in **text responses** via OpenAI, Anthropic Claude and Google Gemini. The adapter uses raw HTTPS via `requests`; API keys are read from `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and `GEMINI_API_KEY`. You can override model IDs in the UI (models and pricing change).
+`story2kdp.providers.text_task()` and the Streamlit **AI Assistant** tab support opt-in **text responses** via OpenAI, Anthropic Claude and Google Gemini. Commercial API calls are disabled by default unless the operator explicitly sets `STORY2KDP_ENABLE_PAID_APIS=1` **and** approves the individual call. The adapter uses raw HTTPS via `requests`; API keys are read from `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and `GEMINI_API_KEY`. You can override model IDs in the UI (models and pricing change).
 
 Anthropic's Claude API is not assumed to generate images. **Image-generation APIs are not implemented in v0.1**. The UI supports importing their images as separate files.
 
@@ -14,6 +14,10 @@ Anthropic's Claude API is not assumed to generate images. **Image-generation API
 4. Select a supported model ID and explicitly approve sending a paid request.
 5. Review output, then manually incorporate accepted advice into the project. **Do not trust arbitrary returned text as production metadata**.
 6. Repeat only for specific scenes or tasks that benefit from AI. Identical provider/model/prompt requests are cached locally.
+
+## No-cost operation and capability parity
+
+Use manuscript parsing, character notes, procedural placeholder art, manual upload of owned/licensed artwork, deterministic review, draft PDFs and local approvals without a commercial API. All future features must also offer a documented free local or manual route, which is not a guarantee of equivalent automated neural generation quality on 8 GB RAM. API integrations are outside the free core and **never required**.
 
 ## Costs and limitations
 

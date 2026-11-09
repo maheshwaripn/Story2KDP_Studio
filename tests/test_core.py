@@ -66,3 +66,17 @@ def test_review_identifies_duplicate_page_scene_and_placeholders(tmp_path):
     p["scenes"][1]["text"] = "TODO: finish the ending"
     codes = {issue["code"] for issue in review_project(p, tmp_path)}
     assert {"DUPLICATE_SCENE_ID", "DUPLICATE_PAGE", "PLACEHOLDER_TEXT"} <= codes
+
+
+def test_paid_provider_disabled_even_with_approval_and_key(monkeypatch, tmp_path):
+    from story2kdp.providers import ProviderError, text_task, paid_api_enabled
+    import requests
+    monkeypatch.delenv("STORY2KDP_ENABLE_PAID_APIS", raising=False)
+    monkeypatch.setenv("OPENAI_API_KEY", "DO_NOT_USE")
+    def forbidden_request(*args, **kwargs):
+        raise AssertionError("No external request may occur in free-default mode")
+    monkeypatch.setattr(requests, "post", forbidden_request)
+    assert paid_api_enabled() is False
+    with pytest.raises(ProviderError, match="disabled by default"):
+        text_task("openai", "Synthetic story", tmp_path / "cache", approve_paid_request=True)
+    assert not (tmp_path / "cache").exists()

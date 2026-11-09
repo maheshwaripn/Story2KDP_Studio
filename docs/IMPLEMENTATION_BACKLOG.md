@@ -82,3 +82,16 @@ Copilot could not retrieve the repository, so its advice was general rather than
 - **Publishing profiles:** add 8×10 as a *target* preset only after current official KDP specs are validated; include metadata and AI disclosure user review. Do not turn proof PDF into a supposedly compliant upload before validation.
 - **Repo hygiene:** pull request template, optional future version tag after VPS verification, check status matrix against code at every PR. Do not tag as stable or production-ready at this time.
 - **Content safety:** apply rights review for known commercial characters and explicit opt-in for sending images/text or identifiable minors to external APIs; avoid brittle claims that a keyword ban guarantees IP safety.
+
+## Free-for-all-features owner requirement (2026-11-09)
+**No paywalls, Pro/Studio levels, payment gateways, subscriptions, quotas, mandatory commercial APIs, or trial locks.** This is an acceptance condition for every P0–P4 task. See [free-first policy](FREE_FIRST_POLICY.md) and [per-feature no-charge paths](FREE_FEATURE_MATRIX.md).
+
+**Immediate:** Keep third-party commercial calls OFF by default, require explicit `STORY2KDP_ENABLE_PAID_APIS=1` plus manual approval, add an offline-no-network test. Do not enable cloud calls just because credentials happen to be present.
+
+**Free baseline P1/P2:** Build proper character cards, visual storyboard, revision history, provenance and consistent prompt templates; offer reference uploads and manual artwork assignment at every stage. A neural generator must not be mandatory; if 8 GB CPU cannot support a model, degrade gracefully.
+
+**Free P3:** Provide deterministic writing/continuity checks and optional locally hosted text model when performance supports it. Offline and manual review workflows must remain available without commercial services. Optional commercial adapters require separate billing protection.
+
+**Free P4:** Use no-fee typography, layout and print-validation libraries; package legal font usage and produce professional PDF artifacts with external KDP Previewer verification. No paid template or print-preflight API dependency.
+
+**Quality acceptance:** Free feature parity means equivalent workflow capability and export availability without payment, **not** guaranteed equivalence of automated illustration quality or runtime across hardware.

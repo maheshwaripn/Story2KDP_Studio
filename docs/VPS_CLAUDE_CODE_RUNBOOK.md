@@ -78,3 +78,6 @@ Open a PR targeting the current development branch; examine diff, secrets, depen
 
 ## 7. Report format after each PR
 Branch/commit, task ID, files changed, exact shell commands, test count/exit codes, screenshots or sample PDF, measured RAM/time if applicable, failures, risks, manual check needed, and next task ID. Include links to GitHub PR/issues, never API secrets.
+
+## Permanent free-all-features direction
+The product owner explicitly requires one free edition with every feature accessible and no subscriptions, paid feature locks or mandatory paid provider. Claude Code must read [FREE_FIRST_POLICY.md](FREE_FIRST_POLICY.md) and [FREE_FEATURE_MATRIX.md](FREE_FEATURE_MATRIX.md), and include the no-charge implementation path in every task. Running Claude Code itself may cost money independently of Story2KDP Studio, and the existing 8 GB CPU VPS may not run a powerful image model. Never install paid-only fonts, model licenses or external dependencies.
