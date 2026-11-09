@@ -1,6 +1,9 @@
 """Streamlit frontend. Run with: streamlit run app.py"""
 from pathlib import Path
 import json
+import uuid
+from io import BytesIO
+from PIL import Image, UnidentifiedImageError
 import streamlit as st
 from story2kdp.core import read_manuscript,build_project,save_project,load_project
 from story2kdp.illustration import concept_art
@@ -31,7 +34,11 @@ if selected=="— Create new —":
         else:
             import tempfile
             with tempfile.TemporaryDirectory() as tmp:
-                temp=Path(tmp)/uploaded.name;temp.write_bytes(uploaded.getvalue())
+                if uploaded.size > 4 * 1024 * 1024:
+                    st.error("Manuscript exceeds 4 MiB upload limit")
+                    st.stop()
+                temp=Path(tmp)/("manuscript" + Path(uploaded.name).suffix.lower())
+                temp.write_bytes(uploaded.getvalue())
                 try:
                     project=build_project(read_manuscript(temp),title,author,pages)
                     save_project(project,ROOT/slug)
@@ -70,10 +77,27 @@ with tabs[1]:
         save_project(project,base);st.success("Preview created. Review before approval.")
     replacement=st.file_uploader("Replace with your own or API-generated PNG/JPEG",type=["png","jpg","jpeg"])
     if replacement and st.button("Assign uploaded illustration"):
-        relative=f"images/{scene_id}-{replacement.name}"
-        (base/relative).write_bytes(replacement.getvalue())
-        scene["image"]=relative;scene["approved"]=False
-        save_project(project,base);st.success("Illustration assigned")
+        try:
+            # Never incorporate the client-provided filename into a project path.
+            # Decode and re-encode uploaded images to discard unexpected payloads.
+            if replacement.size > 30 * 1024 * 1024:
+                raise ValueError("Image exceeds 30 MiB upload limit")
+            raw = replacement.getvalue()
+            with Image.open(BytesIO(raw)) as candidate:
+                if candidate.format not in ("PNG", "JPEG"):
+                    raise ValueError("Only genuine PNG/JPEG content is accepted")
+                if candidate.width * candidate.height > 40_000_000:
+                    raise ValueError("Image dimensions exceed 40 megapixels")
+                validated = candidate.convert("RGB")
+                validated.load()
+            relative=f"images/{scene_id}-{uuid.uuid4().hex}.png"
+            image_target=base/relative
+            image_target.parent.mkdir(parents=True,exist_ok=True)
+            validated.save(image_target, format="PNG")
+            scene["image"]=relative;scene["approved"]=False
+            save_project(project,base);st.success("Illustration assigned; previous image remains on disk")
+        except (ValueError, OSError, UnidentifiedImageError) as exc:
+            st.error(f"Invalid illustration: {exc}")
     if scene.get("image") and (base/scene["image"]).is_file():
         st.image(str(base/scene["image"]),width=410)
 with tabs[2]:

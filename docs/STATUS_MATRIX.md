@@ -22,3 +22,6 @@ Legend: WORKING BASIC = code in repository and covered by limited tests; EXPERIM
 | Authentication, secure public deployment | PLANNED | SSH tunnel localhost only |
 
 Release readiness: **development MVP / private trusted testing only**.
+
+## Post-review incremental safeguards (2026-11-09)
+The branch now retains a previous project.json snapshot in `revisions/` on each save (not a full autosave/restore system). The Streamlit image upload handler limits raw size and pixel count, decodes PNG/JPEG data and generates its own safe filename. The local reviewer flags duplicate scene IDs, duplicate page assignments and placeholder text, and approximates effective DPI from the *existing* layout box. These do not make KDP production export ready. Additional security, revision UX, schema migrations and CI acceptance remain planned.

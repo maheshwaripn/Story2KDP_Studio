@@ -56,3 +56,16 @@ Using a copyright-safe example story: import -> editable page plan -> new book-s
 - Tests (unit/integration/CI) and actual observed output
 - Manual Ubuntu VPS commands and evidence
 - Known blockers and next dependency
+
+## Copilot review triage (2026-11-09)
+Copilot could not retrieve the repository, so its advice was general rather than a file-specific code audit. The development branch is public but unmerged; point reviewers to `feat/local-first-mvp` or PR #1.
+
+**Adopted in the current development branch:** project save revision snapshots and atomic replacement; stricter uploaded art handling; duplicate page/scene IDs and placeholder text in deterministic review. These are safeguards, **not** full autosave, migration, provenance or recovery UI.
+
+**Add to P1:** Design one canonical book document schema with ordered front matter, story pages/scenes and back matter; keep scene/page ID identity and selective invalidation; establish a format-independent renderer interface and revision compare/restore. Do not add chapter structures to a picture-book-only project unless the user asks.
+
+**Add to P3:** Prompt/model/version/temperature/seed metadata when supported, model-output JSON Schema validation, no unbounded retries, cancellation progress and reviewer categories (objective rule / AI heuristic / user choice). Add sensitive content detection with user-editable rules, not a single opaque score.
+
+**Add to P4:** Offer optional DOCX / Kindle EPUB export only after the canonical book model and print PDF pipeline stabilize. Differentiate KDP paperback PDF requirements from Kindle EPUB; implement format-specific re-open/validate tests, and document accessible reading order. Reserve trim, cover and print-specific rules for PDF. Protect against widow/orphan and text overflow in long-form layouts where relevant.
+
+**Repository operations:** Add CONTRIBUTING.md, SECURITY.md, CHANGELOG.md, Dependabot and minimal static-security CI, with false-positive handling; add tests for interrupted processing, no content loss, low-cost retries and non-Latin text. Release notes must clearly distinguish code vs roadmap.

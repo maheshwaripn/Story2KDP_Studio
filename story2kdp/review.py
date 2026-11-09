@@ -14,6 +14,20 @@ def review_project(project: dict, directory: str | Path) -> list[dict]:
     if not scenes: add("error", "EMPTY", "No story scenes")
     if len(scenes) > project.get("page_count", 0) - 4:
         add("error", "PAGES", "Not enough page slots for scenes")
+    seen_ids, seen_pages = set(), set()
+    for scene in scenes:
+        sid, page = scene.get("id"), scene.get("page")
+        if sid in seen_ids:
+            add("error", "DUPLICATE_SCENE_ID", f"Duplicate scene identifier: {sid}", sid)
+        seen_ids.add(sid)
+        if page in seen_pages:
+            add("error", "DUPLICATE_PAGE", f"Multiple scenes assigned to page {page}", sid)
+        seen_pages.add(page)
+        if not isinstance(page, int) or isinstance(page, bool) or page < 1 or page > project.get("page_count", 0):
+            add("error", "INVALID_PAGE", f"Scene page is outside the book: {page}", sid)
+        copy = scene.get("text", "")
+        if "TODO" in copy.upper() or "[INSERT" in copy.upper():
+            add("warning", "PLACEHOLDER_TEXT", "Scene text contains an unfinished placeholder", sid)
     if not project.get("characters"):
         add("warning", "CHARACTERS", "No approved character reference records")
     for scene in scenes:
@@ -36,8 +50,13 @@ def review_project(project: dict, directory: str | Path) -> list[dict]:
         try:
             with Image.open(path) as im:
                 w, h = im.size
-                if min(w, h) < 1800:
-                    add("warning", "LOW_RES", f"Illustration only {w}x{h}; full-page print target approx 2600px", sid)
+                # MVP art box is 80% of a 8.625 x 8.75-in page,
+                # preserving aspect ratio via letterboxing (not cropping).
+                target_w, target_h = 8.625 * .80, 8.75 * .62
+                scale = min(target_w / w, target_h / h)
+                effective_dpi = 1 / scale
+                if effective_dpi < 300:
+                    add("warning", "LOW_RES", f"Illustration {w}x{h} is approx {effective_dpi:.0f} effective DPI at current layout; target 300 DPI", sid)
                 if im.mode in ("RGB", "RGBA"):
                     means = ImageStat.Stat(im.convert("RGB")).mean
                     if max(means) < 45:

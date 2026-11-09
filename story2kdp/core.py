@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import re
 import uuid
+import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from docx import Document
@@ -65,9 +67,26 @@ def save_project(project: dict[str, Any], directory: str | Path) -> Path:
     folder = Path(directory)
     folder.mkdir(parents=True, exist_ok=True)
     target = folder / "project.json"
-    temp = folder / "project.json.tmp"
-    temp.write_text(json.dumps(project, indent=2, ensure_ascii=False), encoding="utf-8")
-    temp.replace(target)
+    # Preserve the last saved state before every modification. Historical
+    # snapshots are private local project data and remain out of Git.
+    if target.is_symlink():
+        raise ValueError("Refusing to overwrite a symlinked project.json")
+    if target.exists():
+        revisions = folder / "revisions"
+        revisions.mkdir(exist_ok=True)
+        if revisions.is_symlink():
+            raise ValueError("Refusing to write to a symlinked revision directory")
+        snapshot = revisions / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + "-" + uuid.uuid4().hex[:8] + ".json")
+        snapshot.write_bytes(target.read_bytes())
+    temp = folder / ("project-" + uuid.uuid4().hex + ".tmp")
+    try:
+        with temp.open("x", encoding="utf-8") as handle:
+            json.dump(project, handle, indent=2, ensure_ascii=False)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temp.replace(target)
+    finally:
+        temp.unlink(missing_ok=True)
     (folder / "images").mkdir(exist_ok=True)
     (folder / "output").mkdir(exist_ok=True)
     return target
