@@ -5,7 +5,8 @@ import uuid
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
 import streamlit as st
-from story2kdp.core import read_manuscript,build_project,save_project,load_project
+from story2kdp.core import read_manuscript,build_project,save_project,load_project,segment
+from story2kdp.planning import group_scene_chunks
 from story2kdp.illustration import concept_art
 from story2kdp.review import review_project
 from story2kdp.publishing import interior_pdf,proof_cover,preflight_pdf
@@ -27,6 +28,20 @@ if selected=="— Create new —":
     author=st.text_input("Author")
     pages=st.selectbox("Pages",[24,32,40,48,64],index=1)
     slug=st.text_input("Project folder name","my-book")
+    st.markdown("#### Scene planning")
+    planning_mode=st.radio(
+        "How should the manuscript fit?",
+        ["Auto-group all text into story scenes", "Strict: one chunk per scene"],
+        help="Auto-group keeps every parsed text chunk in sequence, but long manuscripts may still exceed what fits legibly on a printed page.",
+    )
+    target_scenes=st.number_input(
+        "Target story scenes", min_value=1, max_value=pages-4, value=pages-4,
+        disabled=planning_mode.startswith("Strict"),
+        help="You can edit every created scene in the Storyboard tab.",
+    )
+    st.caption("Auto-grouping does not shorten, rewrite or summarize the manuscript. For a readable picture book, review text density per page and manually edit or expand the book.")
+    with st.expander("Help: manuscript and scene capacity"):
+        st.markdown("**Why did 179 chunks fail?** The original mode needs one story page per detected chunk. Auto-group divides all chunks among your chosen number of scenes without deleting story content. It is a layout-planning aid, not AI editing or a guarantee that pages will be readable. [Full guide on GitHub](https://github.com/maheshwaripn/Story2KDP_Studio/blob/main/docs/SCENE_PLANNING.md).")
     if st.button("Create project",type="primary"):
         if not uploaded or not title.strip():st.error("Supply a manuscript and title")
         elif not slug or not all(c.isalnum() or c in "-_" for c in slug):st.error("Use letters, digits, - or _ for the project folder")
@@ -40,9 +55,22 @@ if selected=="— Create new —":
                 temp=Path(tmp)/("manuscript" + Path(uploaded.name).suffix.lower())
                 temp.write_bytes(uploaded.getvalue())
                 try:
-                    project=build_project(read_manuscript(temp),title,author,pages)
+                    manuscript=read_manuscript(temp)
+                    chunks=segment(manuscript)
+                    if planning_mode.startswith("Auto-group"):
+                        grouped=group_scene_chunks(chunks,int(target_scenes))
+                        project=build_project(manuscript,title,author,pages,scene_chunks=grouped)
+                    else:
+                        project=build_project(manuscript,title,author,pages)
+                    project["planning"]={"mode": "auto_group" if planning_mode.startswith("Auto-group") else "strict",
+                                         "original_chunks":len(chunks),
+                                         "story_scenes":len(project["scenes"])}
+                    project["source_manuscript"]=manuscript
                     save_project(project,ROOT/slug)
-                    st.success(f"Created projects/{slug}; select it in the sidebar")
+                    st.success(f"Created projects/{slug} with {len(project['scenes'])} scenes from {len(chunks)} chunks; select it in the sidebar")
+                    longest=max(len(s["text"].split()) for s in project["scenes"])
+                    if longest > 120:
+                        st.warning(f"Text-density warning: the longest scene contains {longest} words. Review and shorten page text or use a longer book; proof export may not fit this text.")
                 except (ValueError,RuntimeError) as exc:st.error(str(exc))
     st.stop()
 base=ROOT/selected
