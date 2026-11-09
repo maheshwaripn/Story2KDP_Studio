@@ -44,10 +44,12 @@ def segment(text: str, max_chars: int = 370) -> list[str]:
         if block: output.append(block)
     return output
 
-def build_project(text: str, title: str, author: str = "", pages: int = 32) -> dict[str, Any]:
+def build_project(text: str, title: str, author: str = "", pages: int = 32, *, scene_chunks: list[str] | None = None) -> dict[str, Any]:
     if pages < 24 or pages % 2:
         raise ValueError("For this paperback preset, pages must be an even number >= 24")
-    scenes = segment(text)
+    scenes = segment(text) if scene_chunks is None else scene_chunks
+    if not scenes or any(not isinstance(s, str) or not s.strip() for s in scenes):
+        raise ValueError("At least one non-empty scene is required")
     if len(scenes) > pages - 4:
         raise ValueError(f"{len(scenes)} scene chunks exceed {pages - 4} interior story slots. Choose more pages or edit text.")
     return {
